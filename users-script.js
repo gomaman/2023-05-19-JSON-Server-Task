@@ -29,12 +29,13 @@ function createUserList(users) {
 
 init()
 
-
 function nav() {
     let body = document.querySelector("body");
+    let header = document.createElement('header')
     let navigation = document.createElement("nav");
   
-    body.prepend(navigation);
+    body.prepend(header);
+    header.prepend(navigation)
   
     let home = document.createElement("a");
     let users = document.createElement("a");
@@ -44,7 +45,6 @@ function nav() {
   
     navigation.prepend(home,users,albums,posts,comments)
   
-
     home.setAttribute('href','index.html')
     home.textContent = 'Home'
   
@@ -62,4 +62,3 @@ function nav() {
   }
   
   nav();
-  

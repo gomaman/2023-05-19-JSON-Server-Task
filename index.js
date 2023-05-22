@@ -1,9 +1,11 @@
 
 function nav() {
   let body = document.querySelector("body");
+  let header = document.createElement('header')
   let navigation = document.createElement("nav");
 
-  body.prepend(navigation);
+  body.prepend(header);
+  header.prepend(navigation)
 
   let home = document.createElement("a");
   let users = document.createElement("a");
