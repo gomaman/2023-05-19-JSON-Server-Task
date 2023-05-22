@@ -7,10 +7,10 @@ function nav() {
   body.prepend(header);
   header.prepend(navigation)
 
-  let home = document.createElement("a");
-  let users = document.createElement("a");
-  let albums = document.createElement("a");
-  let posts = document.createElement("a");
+  let home     = document.createElement("a");
+  let users    = document.createElement("a");
+  let albums   = document.createElement("a");
+  let posts    = document.createElement("a");
   let comments = document.createElement("a");
 
   navigation.prepend(home,users,albums,posts,comments)

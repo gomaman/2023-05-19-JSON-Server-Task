@@ -7,48 +7,74 @@
 //!  5.6. Internetinio puslapio adresas.
 //!  5.7. Įmonės, kurioje dirba, pavadinimas.
 
-
 async function init() {
-    let response = await fetch('https://jsonplaceholder.typicode.com/users/1')
-    let userData = await response.json()
-    singleUserGenerator(userData)
+  let response = await fetch("https://jsonplaceholder.typicode.com/users/1");
+  let userData = await response.json();
+  singleUserGenerator(userData);
 }
 
-function singleUserGenerator(userData){
-    console.log(userData)
+function singleUserGenerator(userData) {
+  let name = userData.name;
+  let username = userData.username;
+  let address = userData.address;
+  let street = address.street;
+  let suite = address.suite;
+  let city = address.city;
+  let zipCode = address.zipcode;
+  let email = userData.email;
+  let phone = userData.phone;
+  let website = userData.website;
+  let companyName = userData.company.name;
 
-    let name = userData.name
-    let username = userData.username
-    let email = userData.email
-    let address = userData.address
-    let phone = userData.phone
-    let website = userData.website
-    let companyName = userData.company.name
+  let body = document.body;
 
-    let userItemContainer = document.createElement('div')
-    userItemContainer.classList.add('user-item-container')
-    
-    let userUnorderedList = document.createElement('ul')
+  let userItemContainer = document.createElement("div");
+  userItemContainer.classList.add("user-item-container");
 
-    let nameItem = document.createElement('li')
-    let usernameItem = document.createElement('li')
-    let emailItem = document.createElement('li')
-    let addressItem = document.createElement('li')
-    let phoneItem = document.createElement('li')
-    let websiteItem = document.createElement('li')
-    let companyNameItem = document.createElement('li')
+  let userUnorderedList = document.createElement("ul");
 
-    userUnorderedList.append(nameItem,usernameItem,emailItem,addressItem,phoneItem,websiteItem,companyNameItem)
+  let nameItem = document.createElement("li");
+  let usernameItem = document.createElement("li");
+  let emailItem = document.createElement("li");
 
-    nameItem.textContent= name
-    usernameItem.textContent = username
-    emailItem.textContent = email
-    addressItem.textContent = address //susitvarkyt map'a 
-    phoneItem.textContent = phone
-    websiteItem.textContent = website
-    companyNameItem.textContent = companyName
+  let addressItems = document.createElement("ul");
+  let streetItem = document.createElement("li");
+  let suiteItem = document.createElement("li");
+  let cityItem = document.createElement("li");
+  let zipCodeItem = document.createElement("li");
+
+  let phoneItem = document.createElement("li");
+  let websiteItem = document.createElement("li");
+  let companyNameItem = document.createElement("li");
+
+  streetItem.textContent = street;
+  suiteItem.textContent = suite;
+  cityItem.textContent = city;
+  zipCodeItem.textContent = zipCode;
+
+  addressItems.append(
+    streetItem,
+    suiteItem,
+    cityItem,
+    zipCodeItem);
+
+  body.append(userUnorderedList);
+  userUnorderedList.append(
+    nameItem,
+    usernameItem,
+    emailItem,
+    addressItems,
+    phoneItem,
+    websiteItem,
+    companyNameItem
+  );
+
+  nameItem.textContent = name;
+  usernameItem.textContent = username;
+  emailItem.textContent = email;
+  phoneItem.textContent = phone;
+  websiteItem.textContent = website;
+  companyNameItem.textContent = companyName;
 }
 
-
-
-init()
+init();
