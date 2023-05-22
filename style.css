@@ -25,3 +25,29 @@ nav a:hover {
     background-color: #333;
     color: #fff;
 }
+
+.post-container {
+    background-color: #292d3e;
+    color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .post-container a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .post-container a:hover {
+    color: #bbdefb;
+  }
+  
+  .post-container li {
+    margin-bottom: 10px;
+  }
+  
+  .post-container li {
+    font-weight: bold;
+    color: #ccc;
+    font-size: 14px;
+  }
