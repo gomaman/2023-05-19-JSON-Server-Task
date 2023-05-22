@@ -48,7 +48,8 @@ function nav() {
   
     navigation.prepend(home,users,albums,posts,comments)
   
-    home.setAttribute('href','home.html')
+
+    home.setAttribute('href','index.html')
     home.textContent = 'Home'
   
     users.setAttribute('href','users.html')
