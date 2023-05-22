@@ -4,20 +4,20 @@
 
 async function init() {
   let response = await fetch(
-    "https://jsonplaceholder.typicode.com/users/1?_embed=posts"
+    "https://jsonplaceholder.typicode.com/users/1?_embed=posts&_embed=albums"
   );
   let userData = await response.json();
   singleUserGenerator(userData);
   postGenerator(userData);
+  albumGenerator(userData)
   console.log(userData);
 }
 
 function postGenerator(data) {
   let posts = data.posts;
-
+  let userPostItemContainer = document.createElement("div");
   posts.forEach((post) => {
     let body = document.body;
-    let userPostItemContainer = document.createElement("div");
     userPostItemContainer.classList.add("post-container");
     body.append(userPostItemContainer);
     let postLink = document.createElement("a");
@@ -28,6 +28,22 @@ function postGenerator(data) {
     postLink.append(postTitle);
   });
 }
+
+function albumGenerator(data) {
+    let albums = data.albums;
+    let userAlbumsItemContainer = document.createElement("div");
+    albums.forEach((album) => {
+      let body = document.body;
+      userAlbumsItemContainer.classList.add("album-container");
+      body.append(userAlbumsItemContainer);
+      let albumLink = document.createElement("a");
+      let albumTitle = document.createElement("li");
+      userAlbumsItemContainer.append(albumLink);
+      albumTitle.innerHTML = album.title;
+      albumLink.setAttribute("href", "album.html");
+      albumLink.append(albumTitle);
+    });
+  }
 
 function singleUserGenerator(userData) {
   let name = userData.name;

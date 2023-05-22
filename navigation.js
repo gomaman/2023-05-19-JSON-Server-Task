@@ -30,7 +30,6 @@ function nav() {
   header.prepend(navigation);
 
   menu.forEach((menu) => {
-    console.log(menu);
     let menuItem = document.createElement("li");
     let menuItemLink = document.createElement("a");
     menuItemLink.textContent = menu.name;
@@ -39,7 +38,7 @@ function nav() {
     navigation.append(menuItem);
   });
 
-  navigation.append(home, users, albums, posts, comments, user);
+
 }
 
 nav();
