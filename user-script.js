@@ -1,39 +1,33 @@
-
 //!6. Šiame puslapyje (user.html) turi būti atvaizduojama:
 //!6.1. Visi vartotojo parašyti įrašai (posts). Kiekvienas post'as turi turėti nuorodą.
 //!6.2. Visi vartotojo sukurti foto albumai. Kiekvienas albumas turės pavadinimą, kuris turi būti nuoroda.
 
-
 async function init() {
-  let response = await fetch("https://jsonplaceholder.typicode.com/users/1?_embed=posts");
+  let response = await fetch(
+    "https://jsonplaceholder.typicode.com/users/1?_embed=posts"
+  );
   let userData = await response.json();
   singleUserGenerator(userData);
-  postGenerator(userData)
-  console.log(userData)
-  
+  postGenerator(userData);
+  console.log(userData);
 }
-
 
 function postGenerator(data) {
-    let posts = data.posts
+  let posts = data.posts;
 
-    
-    posts.forEach((post) => {
-        let body = document.body
-        let userPostItemContainer = document.createElement('div')
-        userPostItemContainer.classList.add('post-container')
-        body.append(userPostItemContainer)
-        let postLink = document.createElement('a')
-        let postTitle = document.createElement('li')
-        userPostItemContainer.append(postLink)
-        postTitle.innerHTML = post.title
-        postLink.setAttribute('href', 'post.html')
-        postLink.append(postTitle)
-    })
-
+  posts.forEach((post) => {
+    let body = document.body;
+    let userPostItemContainer = document.createElement("div");
+    userPostItemContainer.classList.add("post-container");
+    body.append(userPostItemContainer);
+    let postLink = document.createElement("a");
+    let postTitle = document.createElement("li");
+    userPostItemContainer.append(postLink);
+    postTitle.innerHTML = post.title;
+    postLink.setAttribute("href", "post.html");
+    postLink.append(postTitle);
+  });
 }
-
-
 
 function singleUserGenerator(userData) {
   let name = userData.name;
@@ -53,7 +47,7 @@ function singleUserGenerator(userData) {
   let userItemContainer = document.createElement("div");
   userItemContainer.classList.add("user-item-container");
   let userUnorderedList = document.createElement("ul");
-  userUnorderedList.classList.add('address-ul')
+  userUnorderedList.classList.add("address-ul");
 
   let nameItem = document.createElement("li");
   let usernameItem = document.createElement("li");
@@ -93,41 +87,3 @@ function singleUserGenerator(userData) {
 }
 
 init();
-
-function nav() {
-  let body = document.querySelector("body");
-  let header = document.createElement("header");
-  let navigation = document.createElement("nav");
-
-  body.prepend(header);
-  header.prepend(navigation);
-
-  let home = document.createElement("a");
-  let users = document.createElement("a");
-  let albums = document.createElement("a");
-  let posts = document.createElement("a");
-  let comments = document.createElement("a");
-  let user = document.createElement("a");
-
-  navigation.prepend(home, users, albums, posts, comments, user);
-
-  home.setAttribute("href", "index.html");
-  home.textContent = "Home";
-
-  users.setAttribute("href", "users.html");
-  users.textContent = "Users";
-
-  albums.setAttribute("href", "albums.html");
-  albums.textContent = "Albums";
-
-  posts.setAttribute("href", "posts.html");
-  posts.textContent = "Posts";
-
-  comments.setAttribute("href", "comments.html");
-  comments.textContent = "Comments";
-
-  user.setAttribute("href", "user.html");
-  user.textContent = "User/Test";
-}
-
-nav();
