@@ -26,7 +26,7 @@ function singleUserGenerator(userData){
     let companyName = userData.company.name
 
     let userItemContainer = document.createElement('div')
-    userItem.classList.add('user-item-container')
+    userItemContainer.classList.add('user-item-container')
     
     let userUnorderedList = document.createElement('ul')
 
