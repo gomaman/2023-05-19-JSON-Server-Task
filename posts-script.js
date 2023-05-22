@@ -17,10 +17,10 @@
 async function init() {
     let response = await fetch('https://jsonplaceholder.typicode.com/posts?_embed=comments')
     let postData = await response.json()
-    whateverList(postData)
+    postGenerator(postData)
 }
 
-function whateverList(data) {
+function postGenerator(data) {
     let userPostItemContainer = document.querySelector('.post-container')
     
     data.forEach((data) => {
