@@ -59,13 +59,14 @@ function nav() {
     body.prepend(header);
     header.prepend(navigation)
   
-    let home = document.createElement("a");
-    let users = document.createElement("a");
-    let albums = document.createElement("a");
-    let posts = document.createElement("a");
+    let home     = document.createElement("a");
+    let users    = document.createElement("a");
+    let albums   = document.createElement("a");
+    let posts    = document.createElement("a");
     let comments = document.createElement("a");
+    let user     = document.createElement("a");
   
-    navigation.prepend(home,users,albums,posts,comments)
+    navigation.prepend(home,users,albums,posts,comments,user)
   
     home.setAttribute('href','index.html')
     home.textContent = 'Home'
@@ -81,6 +82,12 @@ function nav() {
   
     comments.setAttribute('href','comments.html')
     comments.textContent = 'Comments'
+
+      
+    user.setAttribute('href','user.html')
+    user.textContent = 'User/Test'
+
+
   }
   
   nav();
