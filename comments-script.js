@@ -1,13 +1,3 @@
-//?https://jsonplaceholder.typicode.com/
-//?https://github.com/typicode/json-server
-//?https://jsonplaceholder.typicode.com
-
-
-
-
-
-
-
 async function init() {
     let response = await fetch('https://jsonplaceholder.typicode.com/comments?_limit=50&_expand=post')
     let commentData = await response.json()

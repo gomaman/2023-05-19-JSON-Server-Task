@@ -30,19 +30,16 @@ function singleUserGenerator(userData) {
 
   let userItemContainer = document.createElement("div");
   userItemContainer.classList.add("user-item-container");
-
   let userUnorderedList = document.createElement("ul");
 
   let nameItem = document.createElement("li");
   let usernameItem = document.createElement("li");
   let emailItem = document.createElement("li");
-
-  let addressItems = document.createElement("ul");
-  let streetItem = document.createElement("li");
-  let suiteItem = document.createElement("li");
-  let cityItem = document.createElement("li");
-  let zipCodeItem = document.createElement("li");
-
+    let addressItems = document.createElement("ul");
+        let streetItem = document.createElement("li");
+        let suiteItem = document.createElement("li");
+        let cityItem = document.createElement("li");
+        let zipCodeItem = document.createElement("li");
   let phoneItem = document.createElement("li");
   let websiteItem = document.createElement("li");
   let companyNameItem = document.createElement("li");
@@ -69,12 +66,12 @@ function singleUserGenerator(userData) {
     companyNameItem
   );
 
-  nameItem.textContent = name;
-  usernameItem.textContent = username;
-  emailItem.textContent = email;
-  phoneItem.textContent = phone;
-  websiteItem.textContent = website;
-  companyNameItem.textContent = companyName;
+  nameItem.textContent = `Name: ${name}`;
+  usernameItem.textContent = `User Name: ${username}`;
+  emailItem.textContent = `Email: ${email}`;
+  phoneItem.textContent = `Phone: ${phone}`;
+  websiteItem.textContent = `Website: ${website}`;
+  companyNameItem.textContent = `Company Name: ${companyName}`;
 }
 
 init();
@@ -111,7 +108,6 @@ function nav() {
     comments.setAttribute('href','comments.html')
     comments.textContent = 'Comments'
 
-      
     user.setAttribute('href','user.html')
     user.textContent = 'User/Test'
 
