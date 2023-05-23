@@ -9,41 +9,40 @@ async function init() {
   let userData = await response.json();
   singleUserGenerator(userData);
   postGenerator(userData);
-  albumGenerator(userData)
-  console.log(userData);
+  albumGenerator(userData);
 }
 
 function postGenerator(data) {
+  let singleUser = document.querySelector(".single-user-container");
   let posts = data.posts;
   let userPostItemContainer = document.createElement("div");
   posts.forEach((post) => {
-    let body = document.body;
-    userPostItemContainer.classList.add("post-container");
-    body.append(userPostItemContainer);
-    let postLink = document.createElement("a");
+    userPostItemContainer.classList.add("title-post-container");
+    singleUser.append(userPostItemContainer);
     let postTitle = document.createElement("li");
-    userPostItemContainer.append(postLink);
-    postTitle.innerHTML = post.title;
+    let postLink = document.createElement("a");
+    userPostItemContainer.append(postTitle);
+    postLink.innerHTML = `Post Title: ${post.title}`;
     postLink.setAttribute("href", "post.html");
-    postLink.append(postTitle);
+    postTitle.append(postLink);
   });
 }
 
 function albumGenerator(data) {
-    let albums = data.albums;
-    let userAlbumsItemContainer = document.createElement("div");
-    albums.forEach((album) => {
-      let body = document.body;
-      userAlbumsItemContainer.classList.add("album-container");
-      body.append(userAlbumsItemContainer);
-      let albumLink = document.createElement("a");
-      let albumTitle = document.createElement("li");
-      userAlbumsItemContainer.append(albumLink);
-      albumTitle.innerHTML = album.title;
-      albumLink.setAttribute("href", "album.html");
-      albumLink.append(albumTitle);
-    });
-  }
+  let singleUser = document.querySelector(".single-user-container");
+  let albums = data.albums;
+  let userAlbumsItemContainer = document.createElement("div");
+  albums.forEach((album) => {
+    userAlbumsItemContainer.classList.add("title-album-container");
+    singleUser.append(userAlbumsItemContainer);
+    let albumTitle = document.createElement("li");
+    let albumLink = document.createElement("a");
+    userAlbumsItemContainer.append(albumTitle);
+    albumLink.innerHTML = `Album Title: ${album.title}`;
+    albumLink.setAttribute("href", "album.html");
+    albumTitle.append(albumLink);
+  });
+}
 
 function singleUserGenerator(userData) {
   let name = userData.name;
@@ -58,10 +57,8 @@ function singleUserGenerator(userData) {
   let website = userData.website;
   let companyName = userData.company.name;
 
-  let body = document.body;
-
-  let userItemContainer = document.createElement("div");
-  userItemContainer.classList.add("user-item-container");
+  let addressContainer = document.createElement("div");
+  addressContainer.classList.add("single-address-container");
   let userUnorderedList = document.createElement("ul");
   userUnorderedList.classList.add("address-ul");
 
@@ -81,9 +78,13 @@ function singleUserGenerator(userData) {
     `https://www.google.com/maps?q=${userData.address.geo.lat},${userData.address.geo.lng}`
   );
 
+  let singleUser = document.querySelector(".single-user-container");
+
   addressItems.append(addressLink);
 
-  body.append(userUnorderedList);
+  singleUser.append(addressContainer);
+  addressContainer.append(userUnorderedList)
+
   userUnorderedList.append(
     nameItem,
     usernameItem,

@@ -26,28 +26,61 @@ nav a:hover {
     color: #fff;
 }
 
-.post-container {
-    background-color: #292d3e;
-    color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
+ul {
+    margin:0px
+}
+
+.single-user-container {
+    min-width: 650px;
+    width:50%;
+}
+
+.single-user-container ul {
+    list-style-type: none;
+    padding: 0;
   }
   
-  .post-container a {
-    color: #fff;
+  .single-user-container li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f0f6fc;
+  }
+
+  .single-user-container li:hover {
+    background-color: #abd2f8;
+  }
+
+  .single-user-container li:last-child {
+    margin-bottom: 0px;
+}
+  
+  .single-user-container li a {
+    color: #0366d6;
     text-decoration: none;
   }
   
-  .post-container a:hover {
-    color: #bbdefb;
+  .single-user-container li a:hover {
+    color: #253435;
   }
-  
-  .post-container li {
-    margin-bottom: 10px;
+
+
+  .single-address-container {
+    border: #333 solid 2px;
+    margin:10px 20px;
+    
   }
-  
-  .post-container li {
-    font-weight: bold;
-    color: #ccc;
-    font-size: 14px;
+
+  .single-address-container li {
+    background-color: #b7d8fa;
+  }
+
+
+  .title-post-container {
+    border: #333 solid 2px;
+    margin:10px 20px;
+  }
+
+  .title-album-container {
+    border: #333 solid 2px;
+    margin:10px 20px;
   }
