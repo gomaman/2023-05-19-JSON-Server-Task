@@ -1,5 +1,8 @@
 
 async function init() {
+
+
+
     let response = await fetch('https://jsonplaceholder.typicode.com/users?_embed=posts')
     let userData = await response.json()
 
@@ -15,11 +18,12 @@ function createUserList(users) {
     users.forEach(user => {
         let userItem = document.createElement('li')
         let userLink = document.createElement('a')
+        let userID = user.id
         userItem.append(userLink)
-        userLink.setAttribute("href" , "user.html")
+        userLink.href = "user.html?user_id=" + userID
         let name = user.name
         let userName = user.username
-        let userID = user.id
+        
         let userPostsAmount = user.posts.length
         userLink.textContent = `Full Name: ${name}`+ `; ` + `Username: ${userName}` + `; ` +`User ID: ${userID}`+ `; ` + `User Posted ${userPostsAmount} times.`
             userNameItemUL.append(userItem)

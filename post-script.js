@@ -1,9 +1,16 @@
 async function init() {
+
+    const queryParams = location.search
+    const urlParams = new URLSearchParams(queryParams) 
+    const id = urlParams.get('user_id')
+
+
   let response = await fetch(
-    "https://jsonplaceholder.typicode.com/posts/1?_embed=comments&_expand=user"
+    `https://jsonplaceholder.typicode.com/posts/1?_embed=comments&_expand=user`
   );
   let postData = await response.json();
 
+    console.log(postData)
   const postContainer = document.querySelector(".single-post-container");
 
   postContainer.append(singlePost(postData), postComments(postData));
@@ -21,7 +28,6 @@ function singlePost(post) {
                               `;
   return singlePost;
 }
-
 init();
 
 function postComments(post) {

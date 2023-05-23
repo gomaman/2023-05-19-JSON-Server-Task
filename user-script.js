@@ -1,15 +1,18 @@
-//!6. Šiame puslapyje (user.html) turi būti atvaizduojama:
-//!6.1. Visi vartotojo parašyti įrašai (posts). Kiekvienas post'as turi turėti nuorodą.
-//!6.2. Visi vartotojo sukurti foto albumai. Kiekvienas albumas turės pavadinimą, kuris turi būti nuoroda.
 
 async function init() {
+
+  const queryParams = location.search
+  const urlParams = new URLSearchParams(queryParams) 
+  const id = urlParams.get('user_id')
+
   let response = await fetch(
-    "https://jsonplaceholder.typicode.com/users/1?_embed=posts&_embed=albums"
+    `https://jsonplaceholder.typicode.com/users/${id}?_embed=posts&_embed=albums`
   );
   let userData = await response.json();
   singleUserGenerator(userData);
   postGenerator(userData);
   albumGenerator(userData);
+  
 }
 
 function postGenerator(data) {
