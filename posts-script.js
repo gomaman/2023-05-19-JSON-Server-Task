@@ -1,19 +1,3 @@
-
-
-
-
-
-
-
-
-//!    2. Sukurti puslapį, kuriame bus atvaizduojami įrašai (posts). Kiekvienas įrašas turi:
-//!  2.1. Pavadinimą. Tai turi būti nuoroda. Ji turi vesti į post.html puslapį.
-//!  2.2. Autorių. Tai turi būti nuoroda. Ji turi vesti į user.html puslapį.
-//!  2.3. Prie pavadinimo pridėti įrašo komentarų skaičių.
-
-
-
-
 async function init() {
     let response = await fetch('https://jsonplaceholder.typicode.com/posts?_embed=comments')
     let postData = await response.json()
@@ -33,7 +17,7 @@ function postGenerator(data) {
 
         postTitleWrap = document.createElement('li')
         postTitleElement  = document.createElement('a')
-        postTitleElement.setAttribute('href', 'users.html')
+        postTitleElement.setAttribute('href', 'post.html')
         postAuthorElement = document.createElement('li')
         postCommentAmountElement = document.createElement(`span`)
         postCommentAmountElement.textContent = ` Comment Amount ${postCommentAmount}`
