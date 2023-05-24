@@ -1,8 +1,6 @@
 
 async function init() {
 
-
-
     let response = await fetch('https://jsonplaceholder.typicode.com/users?_embed=posts')
     let userData = await response.json()
 

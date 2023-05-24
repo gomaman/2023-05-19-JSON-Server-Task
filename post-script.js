@@ -61,7 +61,7 @@ function postComments(post) {
 // function singlePost(post) {
 
 //     const {title, body, comments } = post
-//     const postName = post.user.name //! i autoriaus puslapi nuvest tures
+//     const postName = post.user.name // i autoriaus puslapi nuvest tures
 
 //     let postContainer = document.querySelector('.single-post-container')
 //     let titleElement = document.createElement('h2')

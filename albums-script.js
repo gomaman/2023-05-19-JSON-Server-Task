@@ -8,6 +8,7 @@ function albumItemGenerator (data) {
 let container = document.querySelector('.album-container')
 
     data.forEach((data) => {
+        console.log(data)
         let item = document.createElement('ul')
         let title = document.createElement('h3')
         let userName = document.createElement('li')
@@ -22,8 +23,7 @@ let container = document.querySelector('.album-container')
         pictureLink.append(picture)
         pictureContainer.append(pictureLink)
         container.append(item,pictureContainer)
-
-        pictureLink.setAttribute('href', 'album.html')
+        pictureLink.href = 'album.html?album_id=' + data.id
         title.textContent = `Title: ${data.title}`
         userName.textContent = `Author: ${data.user.name}`
         pictureAmount.textContent = `Amount of pictures: ${data.photos.length}`
