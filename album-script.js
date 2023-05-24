@@ -22,8 +22,8 @@ function albumGenerator(data) {
   let { title, photos } = data;
   let { name, id } = data.user;
 
-  albumDescription.innerHTML = `<h2>  ${title}</h2>
-                                  <span><a href="/user.html?user_id=${id}">${name}</a></span>
+  albumDescription.innerHTML = `<h2> Album: ${title}</h2>
+                                <span>Author: <a href="/user.html?user_id=${id}">${name}</a></span>
     `;
   albumDescription.append(photosContainer);
 
