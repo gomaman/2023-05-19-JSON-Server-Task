@@ -8,7 +8,6 @@ function whateverList(commentData) {
     let userCommentItemContainer = document.querySelector('.post-container')
     
     commentData.forEach((data) => {
-        console.log(data)
         let commentInfoBox = document.createElement('ul')
         let commentTitle = data.name
         let commentBody = data.body
@@ -32,7 +31,7 @@ function whateverList(commentData) {
         commentInfoBox.append(commentInfoListItemId,commentInfoListItemTitle,commentInfoListItemBody,commentInfoListItemEmail,commentInfoListItemPostOrigin)
         userCommentItemContainer.append(commentInfoBox)
     })
-
-
 }
 init()
+
+

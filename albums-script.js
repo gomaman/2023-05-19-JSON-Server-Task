@@ -2,13 +2,15 @@ async function init() {
     let response = await fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos&_expand=user')
     let albumData = await response.json()
     albumItemGenerator (albumData)
+    console.log('e')
 }
+
+import { firstLetterUpper } from "./functions.js"
 
 function albumItemGenerator (data) {
 let container = document.querySelector('.album-container')
 
     data.forEach((data) => {
-        console.log(data)
         let item = document.createElement('ul')
         let title = document.createElement('h3')
         let userName = document.createElement('li')
@@ -24,7 +26,7 @@ let container = document.querySelector('.album-container')
         pictureContainer.append(pictureLink)
         container.append(item,pictureContainer)
         pictureLink.href = 'album.html?album_id=' + data.id
-        title.textContent = `Title: ${data.title}`
+        title.textContent = `Title: ${firstLetterUpper(data.title)}`
         userName.textContent = `Author: ${data.user.name}`
         pictureAmount.textContent = `Amount of pictures: ${data.photos.length}`
         picture.src = data.photos[0].url

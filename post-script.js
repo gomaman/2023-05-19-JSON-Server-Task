@@ -2,11 +2,11 @@ async function init() {
 
     const queryParams = location.search
     const urlParams = new URLSearchParams(queryParams) 
-    const id = urlParams.get('user_id')
+    const id = urlParams.get('post_id')
 
 
   let response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/1?_embed=comments&_expand=user`
+    `https://jsonplaceholder.typicode.com/posts/${id}?_expand=user&_embed=comments`
   );
   let postData = await response.json();
 
@@ -16,9 +16,13 @@ async function init() {
   postContainer.append(singlePost(postData), postComments(postData));
 }
 
+
+
+
 function singlePost(post) {
   let singlePost = document.createElement("div");
   singlePost.classList.add("post-title-wrapper");
+  console.log(post)
   const { title, body } = post;
   const { name } = post.user;
   singlePost.innerHTML = `    <h2>Post Title: ${title}</h2>

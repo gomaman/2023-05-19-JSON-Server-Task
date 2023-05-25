@@ -44,6 +44,35 @@ function nav() {
     navigation.append(menuItem);
   });
 
+  let menuSearchForm = document.createElement("form")
+  menuSearchForm.setAttribute('for','search')
+
+  let menuSearchInput = document.createElement("input")
+  menuSearchInput.setAttribute('type','text')
+  menuSearchInput.setAttribute('id','search')
+  menuSearchInput.setAttribute('name','search')
+  let menuSearchButton = document.createElement('input')
+  menuSearchButton.setAttribute('type', 'submit')
+  menuSearchButton.setAttribute('value', 'Search')
+
+  menuSearchForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    if (menuSearchInput.value == '') {
+        console.log('rezultatų pagal užklausą nerasta')
+    } else {
+      const searchQuery = menuSearchInput.value;
+      window.location.href = `search.html?query=${searchQuery}`;
+      
+      
+    }
+
+  })
+ 
+
+  navigation.append(menuSearchForm)
+  menuSearchForm.append(menuSearchInput,menuSearchButton)
+
+
 
 }
 
