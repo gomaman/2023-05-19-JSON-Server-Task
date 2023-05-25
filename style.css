@@ -94,3 +94,7 @@ ul {
     border: #333 solid 2px;
     margin:10px 20px;
   }
+
+  ul.menu.main-menu {
+    padding-left: 10px;
+}

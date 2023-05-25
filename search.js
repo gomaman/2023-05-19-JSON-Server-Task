@@ -9,17 +9,6 @@ async function init() {
   const urlParams = new URLSearchParams(queryParams);
   const searchQuery = urlParams.get("search");
 
-  if (!searchQuery) {
-    const initAnswerContainer = document.querySelector(".answer-container");
-    
-    initAnswerContainer.append(generateError());
-    let form = document.querySelector("search-form");
-    console.log(form)
-    form.classList.add("no-display")
-
-    return;
-  }
-  
   let response = await fetch(
     `https://jsonplaceholder.typicode.com/${searchQuery}/`
   );
@@ -27,7 +16,7 @@ async function init() {
 
   let initAnswerContainer = document.querySelector(".answer-container");
 
-  if (userData.length == undefined) {
+  if (userData == undefined) {
     initAnswerContainer.append(generateError());
   } else {
     initAnswerContainer.append(generateAnswer());
