@@ -1,79 +1,69 @@
-//!9. Sukurti paieškos funkcionalumą navigacijos elemente:
-//!9.1. Navigacijos elemente sukurti formą, kuri turi text tipo input elementą (nepamiršti pridėti name atributą).
-//!9.2. Formos submit metu, naudojant action atributą, nukreipti į naują puslapį (search.html).
-//!9.3. Šiame puslapyje atvaizduoti paieškos rezultatą.
-//!9.3.1. Jeigu nėra tinkamų rezultatų, tai parašyti jog rezultatų pagal užklausą nerasta.
+function init() {
+  const headerElement = document.createElement('header');
 
-function nav() {
-  let menu = [
+  const searchForm = document.createElement('form');
+  searchForm.classList.add('search-form')
+  searchForm.action = './search.html';
+
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.name = 'search';
+  searchInput.id = 'search';
+
+  const searchButton = document.createElement('button');
+  searchButton.type = 'submit';
+  searchButton.textContent = 'Search';
+
+  searchForm.append(searchInput, searchButton);
+
+  const navigationElement = document.createElement('nav');
+  navigationElement.classList.add('main-navigation');
+
+  headerElement.append(navigationElement);
+
+  const menuList = document.createElement('ul');
+  menuList.classList.add('menu', 'main-menu');
+
+  navigationElement.append(searchForm, menuList);
+
+  const menuItems = [
     {
-      name: `Home`,
-      url: `./index.html`,
+      title: 'Home',
+      path: ''
     },
     {
-      name: `Users`,
-      url: `./users.html`,
+      title: 'Users',
+      path: 'users.html'
     },
     {
-      name: `Albums`,
-      url: `./albums.html`,
+      title: 'Posts',
+      path: 'posts.html'
     },
     {
-      name: `Posts`,
-      url: `./posts.html`,
-    },
-    {
-      name: `Comments`,
-      url: `./comments.html`,
-    },
+      title: 'Albums',
+      path: 'albums.html'
+    }
   ];
 
-  let body = document.querySelector("body");
-  let header = document.createElement("header");
-  let navigation = document.createElement("nav");
+  menuItems.forEach(item => {
+    let { title, path } = item;
 
-  body.prepend(header);
-  header.prepend(navigation);
+    const menuItem = document.createElement('li');
+    menuList.append(menuItem);
+  
+    const menuLink = document.createElement('a');
 
-  menu.forEach((menu) => {
-    let menuItem = document.createElement("li");
-    let menuItemLink = document.createElement("a");
-    menuItemLink.textContent = menu.name;
-    menuItemLink.href = menu.url;
-    menuItem.append(menuItemLink);
-    navigation.append(menuItem);
-  });
-
-  let menuSearchForm = document.createElement("form")
-  menuSearchForm.setAttribute('for','search')
-
-  let menuSearchInput = document.createElement("input")
-  menuSearchInput.setAttribute('type','text')
-  menuSearchInput.setAttribute('id','search')
-  menuSearchInput.setAttribute('name','search')
-  let menuSearchButton = document.createElement('input')
-  menuSearchButton.setAttribute('type', 'submit')
-  menuSearchButton.setAttribute('value', 'Search')
-
-  menuSearchForm.addEventListener('submit', (event) => {
-    event.preventDefault()
-    if (menuSearchInput.value == '') {
-        console.log('rezultatų pagal užklausą nerasta')
-    } else {
-      const searchQuery = menuSearchInput.value;
-      window.location.href = `search.html?query=${searchQuery}`;
-      
-      
+    if (location.pathname === '/' + path) {
+      menuLink.classList.add('active');
     }
 
+    menuItem.append(menuLink);
+  
+    menuLink.textContent = title;
+    menuLink.href = './' + path;
   })
- 
 
-  navigation.append(menuSearchForm)
-  menuSearchForm.append(menuSearchInput,menuSearchButton)
-
-
-
+  document.body.prepend(headerElement);
 }
 
-nav();
+init();

@@ -2,7 +2,6 @@ async function init() {
     let response = await fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos&_expand=user')
     let albumData = await response.json()
     albumItemGenerator (albumData)
-    console.log('e')
 }
 
 import { firstLetterUpper } from "./functions.js"
