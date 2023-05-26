@@ -1,11 +1,6 @@
-//!9. Sukurti paieškos funkcionalumą navigacijos elemente:
-//!9.1. Navigacijos elemente sukurti formą, kuri turi text tipo input elementą (nepamiršti pridėti name atributą).
-//!9.2. Formos submit metu, naudojant action atributą, nukreipti į naują puslapį (search.html).
-//!9.3. Šiame puslapyje atvaizduoti paieškos rezultatą.
-//!9.3.1. Jeigu nėra tinkamų rezultatų, tai parašyti jog rezultatų pagal užklausą nerasta.
-
 import { navigationGenerator } from "./navigation.js";
 import { firstLetterUpper } from "./functions.js";
+
 async function init() {
   document.body.prepend(navigationGenerator());
 
@@ -21,10 +16,16 @@ async function init() {
 
 
   if (userData.length == undefined) {
-    //!Lauzymas, bet kolkas tiks.
+    //!Lauzymas, bet kolkas tiks. Problema kai neranda searchQuery, jis neranda ka sufetchint 
     initAnswerContainer.append(generateError());
   } else {
-    initAnswerContainer.append(generateAnswer(searchQuery, userData));
+
+
+
+    let generateAnswerContainer = document.createElement("div");
+    initAnswerContainer.append(
+      generateAnswer(searchQuery, userData, generateAnswerContainer)
+    );
   }
 
   classRemove();
@@ -38,20 +39,16 @@ function classRemove() {
 function generateError() {
   let generateAnswerContainer = document.createElement("div");
   generateAnswerContainer.innerHTML = `<h1>Nieko nerasta</h1>`;
-  console.log(generateAnswerContainer)
-
   return generateAnswerContainer;
 }
 
-function generateAnswer(search, userData) {
+function generateAnswer(search, userData, container) {
   if (search === "users") {
-    let generateAnswerContainer = document.createElement("div");
-
     userData.forEach((user) => {
       let { name, username, email, id } = user;
       let userContainer = document.createElement("div");
 
-      generateAnswerContainer.append(userContainer);
+      container.append(userContainer);
       userContainer.innerHTML = `
           <ul>
             <li>Name:<a href='/user.html?user_id=${id}'>${name}</a></li>
@@ -60,37 +57,36 @@ function generateAnswer(search, userData) {
           </ul>`;
     });
 
-    return generateAnswerContainer;
+    return container;
+
   } else if (search === "posts") {
-    let generateAnswerContainer = document.createElement("div");
     userData.forEach((post) => {
-      console.log(post)
       let { title, body, id } = post;
       let userContainer = document.createElement("div");
-      generateAnswerContainer.append(userContainer);
+      container.append(userContainer);
       userContainer.innerHTML = `
           <ul>
             <li>Title:<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(title)}</a></li>
             <li>Body: ${firstLetterUpper(body)}</li>
-          </ul>`
-    });
-
-    return generateAnswerContainer;
-
-  } else if (search === "albums") {
-    let generateAnswerContainer = document.createElement("div");
-    userData.forEach((user) => {
-      let userContainer = document.createElement("div");
-      generateAnswerContainer.append(userContainer);
-      userContainer.innerHTML = `
-          <ul>
-            <li>Album Title: ${user.title}</li>
-
-            <li>Album Identification: ${user.id}</li>
-            <li>User Id: ${user.userId}</li>
           </ul>`;
     });
-    return generateAnswerContainer;
+
+    return container;
+
+  } else if (search === "albums") {
+    userData.forEach((album) => {
+      let userContainer = document.createElement("div");
+      let { userId, title, id } = album;
+      console.log(album.id)
+      container.append(userContainer);
+      userContainer.innerHTML = `
+          <ul>
+            <li>Album Title: <a href='/album.html?album_id=${id}'>${title}</a></li>
+            <li>Album Identification: ${id}</li>
+            <li>User Id: ${userId}</li>
+          </ul>`;
+    });
+    return container;
   }
 }
 
