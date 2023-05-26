@@ -1,5 +1,9 @@
+import { navigationGenerator } from "./navigation.js"
 
 async function init() {
+
+    let body = document.querySelector('body')
+    body.prepend(navigationGenerator())
 
     let response = await fetch('https://jsonplaceholder.typicode.com/users?_embed=posts')
     let userData = await response.json()

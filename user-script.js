@@ -1,5 +1,9 @@
+import { navigationGenerator } from "./navigation.js";
 
 async function init() {
+
+  let body = document.querySelector('body')
+  body.prepend(navigationGenerator())
 
   const queryParams = location.search
   const urlParams = new URLSearchParams(queryParams) 

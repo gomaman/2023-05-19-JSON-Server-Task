@@ -1,9 +1,9 @@
+import { firstLetterUpper } from "./functions.js";
+
 async function init() {
   const queryParams = location.search;
   const urlParams = new URLSearchParams(queryParams);
   const id = urlParams.get("post_id");
-
-
 
   let response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${id}?_expand=user&_embed=comments`
@@ -14,10 +14,7 @@ async function init() {
 
   postContainer.append(singlePost(postData), postComments(postData));
 
-
 }
-
-import { firstLetterUpper } from "./functions.js";
 
 function singlePost(post) {
   let singlePost = document.createElement("div");
@@ -29,9 +26,12 @@ function singlePost(post) {
                                 <p>Post body: ${firstLetterUpper(body)}</p>
                                 <a href='posts.html'>Kiti autoriaus irasai</a>
                               `;
+
+
+                              console.log(singlePost)
   return singlePost;
 }
-init();
+
 
 function postComments(post) {
   let commentInfo = document.createElement("div");
@@ -49,3 +49,5 @@ function postComments(post) {
 
   return commentInfo;
 }
+
+init();

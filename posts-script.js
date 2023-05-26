@@ -1,10 +1,16 @@
+import { navigationGenerator } from "./navigation.js"
+import { firstLetterUpper } from "./functions.js"
+
 async function init() {
+
+    let body = document.querySelector('body')
+    body.prepend(navigationGenerator())
+
     let response = await fetch('https://jsonplaceholder.typicode.com/posts?_embed=comments')
     let postData = await response.json()
     postGenerator(postData)
 }
 
-import { firstLetterUpper } from "./functions.js" 
 
 function postGenerator(data) {
     
