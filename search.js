@@ -7,37 +7,29 @@ import {
 } from "./functions.js";
 import {
   API_URL,
-  COMMENTS_PER_PAGE,
-  ALBUMS_PER_PAGE,
-  POSTS_PER_PAGE,
 } from "./config.js";
 
 async function init() {
   const answerContainer = document.querySelector(".answer-container");
-
   answerContainer.before(navigationGenerator());
-
   let searchingFor = getUrlParams("search");
 
-  const foundUsers = await fetchData(`${API_URL()}/users?q=${searchingFor}`);
-  const foundPosts = await fetchData(`${API_URL()}/posts?q=${searchingFor}`);
-  const foundAlbums = await fetchData(`${API_URL()}/albums?q=${searchingFor}`);
 
+  const foundUsers = await fetchData(`${API_URL()}/users?q=${searchingFor}`);
   if (foundUsers.length < 1) {
     answerContainer.append(
       createHTMLElement("span", "error", `No Users Found`)
     );
-    console.log("lievai");
   } else {
     foundUsers.forEach((user) => {
       const { id, name, username, email } = user;
       const userAnswerContainer = document.createElement("div");
-
+      userAnswerContainer.classList.add('user-answer-container')
       userAnswerContainer.innerHTML = `
+
       <ul>
-        <li>ID: ${id}</li>
-        <li>Name: ${name}</li>
-        <li>UserName: ${username}</li>
+        <li>Name: ${firstLetterUpper(name)}</li>
+        <li>UserName: ${firstLetterUpper(username)}</li>
         <li>Email: ${email}</li>
       </ul>
       `;
@@ -45,16 +37,48 @@ async function init() {
     });
   }
 
-  if (foundUsers.length < 1) {
-    console.log("lievai");
+
+  const foundPosts = await fetchData(`${API_URL()}/posts?q=${searchingFor}`);
+  if (foundPosts.length < 1) {
+    answerContainer.append(
+      createHTMLElement("span", "error", `No Posts Found`)
+    );
   } else {
-    console.log(foundPosts);
+    foundPosts.forEach((post) => {
+      const { body, id, title, userId } = post;
+
+      const postAnswerContainer = document.createElement("div");
+      postAnswerContainer.classList.add('post-answer-container')
+      postAnswerContainer.innerHTML = `
+
+      <ul>
+        <li> Post Title: ${firstLetterUpper(title)}</li>
+        <li> Post Body: ${firstLetterUpper(body)}</li>
+      </ul>
+      `;
+      answerContainer.append(postAnswerContainer);
+    });
   }
 
-  if (foundUsers.length < 1) {
-    console.log("lievai");
+  const foundAlbums = await fetchData(`${API_URL()}/albums?q=${searchingFor}`);
+  if (foundAlbums.length < 1) {
+    answerContainer.append(
+      createHTMLElement("span", "error", `No Albums Found`)
+    );
   } else {
-    console.log(foundAlbums);
+    foundAlbums.forEach((album) => {
+      const { id, title, userId } = album;
+
+      const albumAnswerContainer = document.createElement("div");
+      albumAnswerContainer.classList.add('album-answer-container')
+      albumAnswerContainer.innerHTML = `
+
+      <ul>
+        <li> Album Title: ${firstLetterUpper(title)}</li>
+      </ul>
+      `;
+      answerContainer.append(albumAnswerContainer);
+    });
   }
 }
 
