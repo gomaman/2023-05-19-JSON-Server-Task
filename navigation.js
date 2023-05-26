@@ -4,7 +4,7 @@ export function navigationGenerator() {
 
   const headerElement = document.createElement('header');
 
-  
+
   const pageTitle = document.createElement('a');
   pageTitle.textContent = 'API Project';
   pageTitle.href = './';
@@ -27,7 +27,7 @@ export function navigationGenerator() {
   const navigationElement = document.createElement('nav');
   navigationElement.classList.add('main-navigation');
 
-  headerElement.append(navigationElement);
+  headerElement.append(pageTitle, navigationElement);
 
   const menuList = document.createElement('ul');
   menuList.classList.add('menu', 'main-menu');
@@ -52,7 +52,7 @@ export function navigationGenerator() {
     menuLink.href = './' + path;
   })
 
-  document.body.prepend(headerElement);
+  return headerElement
+  
 }
 
-navigationGenerator();
