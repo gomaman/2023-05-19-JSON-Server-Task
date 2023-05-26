@@ -1,13 +1,5 @@
-import { MAIN_MENU_ITEMS } from "./config";
-
-export function navigationGenerator() {
-
+function init() {
   const headerElement = document.createElement('header');
-
-
-  const pageTitle = document.createElement('a');
-  pageTitle.textContent = 'API Project';
-  pageTitle.href = './';
 
   const searchForm = document.createElement('form');
   searchForm.classList.add('search-form')
@@ -27,14 +19,33 @@ export function navigationGenerator() {
   const navigationElement = document.createElement('nav');
   navigationElement.classList.add('main-navigation');
 
-  headerElement.append(pageTitle, navigationElement);
+  headerElement.append(navigationElement);
 
   const menuList = document.createElement('ul');
   menuList.classList.add('menu', 'main-menu');
 
   navigationElement.append(searchForm, menuList);
 
-  MAIN_MENU_ITEMS.forEach(item => {
+  const menuItems = [
+    {
+      title: 'Home',
+      path: ''
+    },
+    {
+      title: 'Users',
+      path: 'users.html'
+    },
+    {
+      title: 'Posts',
+      path: 'posts.html'
+    },
+    {
+      title: 'Albums',
+      path: 'albums.html'
+    }
+  ];
+
+  menuItems.forEach(item => {
     let { title, path } = item;
 
     const menuItem = document.createElement('li');
@@ -52,7 +63,7 @@ export function navigationGenerator() {
     menuLink.href = './' + path;
   })
 
-  return headerElement
-  
+  document.body.prepend(headerElement);
 }
 
+init();
