@@ -11,6 +11,12 @@ import { API_URL } from "./config.js";
 async function init() {
   const answerContainer = document.querySelector(".answer-container");
   answerContainer.before(navigationGenerator());
+
+  const userInfoContainer = document.createElement("div");
+  const userInfoUl = document.createElement("ul");
+  userInfoContainer.append(userInfoUl);
+  userInfoContainer.classList.add("user-answer-container");
+
   let searchingFor = getUrlParams("search");
 
   const foundUsers = await fetchData(`${API_URL()}/users?q=${searchingFor}`);
@@ -21,19 +27,18 @@ async function init() {
   } else {
     foundUsers.forEach((user) => {
       const { id, name, username, email } = user;
-      const userAnswerContainer = document.createElement("div");
-      userAnswerContainer.classList.add("user-answer-container");
-      userAnswerContainer.innerHTML = `
-
-      <ul>
-        <li>Name:<a href='/user.html?user_id=${id}'>${name}</a></li>
-        <li>UserName: ${firstLetterUpper(username)}</li>
-        <li>Email: ${email}</li>
-      </ul>
+      const userAnswerLiContainer = document.createElement("li");
+      userAnswerLiContainer.innerHTML = `
+        Name:<a href='/user.html?user_id=${id}'>${name}</a>
       `;
-      answerContainer.append(userAnswerContainer);
+      userInfoUl.append(userAnswerLiContainer);
     });
   }
+
+  const postInfoContainer = document.createElement("div");
+  const postInfoUl = document.createElement("ul");
+  postInfoContainer.append(postInfoUl);
+  postInfoContainer.classList.add("post-answer-container");
 
   const foundPosts = await fetchData(`${API_URL()}/posts?q=${searchingFor}`);
   if (foundPosts.length < 1) {
@@ -43,19 +48,20 @@ async function init() {
   } else {
     foundPosts.forEach((post) => {
       const { body, id, title, userId } = post;
-
-      const postAnswerContainer = document.createElement("div");
-      postAnswerContainer.classList.add("post-answer-container");
-      postAnswerContainer.innerHTML = `
-
-      <ul>
-        <li> Post Title:<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(title)}</a></li>
-        <li> Post Body: ${firstLetterUpper(body)}</li>
-      </ul>
+      const postAnswerLiContainer = document.createElement("li");
+      postAnswerLiContainer.innerHTML = `
+      Post Title:<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(
+        title
+      )}</a>
       `;
-      answerContainer.append(postAnswerContainer);
+      postInfoUl.append(postAnswerLiContainer);
     });
   }
+
+  const albumInfoContainer = document.createElement("div");
+  const albumInfoUl = document.createElement("ul");
+  albumInfoContainer.append(albumInfoUl);
+  albumInfoContainer.classList.add("album-answer-container");
 
   const foundAlbums = await fetchData(`${API_URL()}/albums?q=${searchingFor}`);
   if (foundAlbums.length < 1) {
@@ -65,18 +71,20 @@ async function init() {
   } else {
     foundAlbums.forEach((album) => {
       const { id, title, userId } = album;
+      const albumAnswerLiContainer = document.createElement("li");
+      albumAnswerLiContainer.innerHTML = `
+      Album Title: <a href='/album.html?album_id=${id}'>${title}</a>
 
-      const albumAnswerContainer = document.createElement("div");
-      albumAnswerContainer.classList.add("album-answer-container");
-      albumAnswerContainer.innerHTML = `
-
-      <ul>
-        <li> Album Title: <a href='/album.html?album_id=${id}'>${title}</a></li>
-      </ul>
       `;
-      answerContainer.append(albumAnswerContainer);
+      albumInfoUl.append(albumAnswerLiContainer);
     });
   }
+
+  answerContainer.append(
+    userInfoContainer,
+    postInfoContainer,
+    albumInfoContainer
+  );
 }
 
 init();
