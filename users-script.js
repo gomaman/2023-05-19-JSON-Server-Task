@@ -13,7 +13,7 @@ async function init() {
     userNameItemContainer.append(userListElement)
 }
 
-function createUserList(users) {
+ export function createUserList(users) {
     let userNameItemUL = document.createElement('ul')
     userNameItemUL.classList.add('user-list-container')
 
