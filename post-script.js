@@ -1,6 +1,11 @@
 import { firstLetterUpper } from "./functions.js";
+import { navigationGenerator } from "./navigation.js";
 
 async function init() {
+
+  let body = document.querySelector('body')
+  body.prepend(navigationGenerator())
+  
   const queryParams = location.search;
   const urlParams = new URLSearchParams(queryParams);
   const id = urlParams.get("post_id");
@@ -10,7 +15,11 @@ async function init() {
   );
   let postData = await response.json();
 
+
+
   const postContainer = document.querySelector(".single-post-container");
+
+ 
 
   postContainer.append(singlePost(postData), postComments(postData));
 
@@ -28,7 +37,7 @@ function singlePost(post) {
                               `;
 
 
-                              console.log(singlePost)
+                              
   return singlePost;
 }
 

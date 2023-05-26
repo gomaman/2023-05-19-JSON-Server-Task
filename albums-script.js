@@ -1,10 +1,17 @@
+import { firstLetterUpper } from "./functions.js"
+import { navigationGenerator } from "./navigation.js"
+
+
 async function init() {
     let response = await fetch('https://jsonplaceholder.typicode.com/albums?_embed=photos&_expand=user')
     let albumData = await response.json()
     albumItemGenerator (albumData)
+
+    let body = document.querySelector('body')
+    body.prepend(navigationGenerator())
 }
 
-import { firstLetterUpper } from "./functions.js"
+
 
 function albumItemGenerator (data) {
 let container = document.querySelector('.album-container')
