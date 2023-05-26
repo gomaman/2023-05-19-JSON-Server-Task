@@ -5,15 +5,13 @@ import {
   getUrlParams,
   createHTMLElement,
 } from "./functions.js";
-import {
-  API_URL,
-} from "./config.js";
+
+import { API_URL } from "./config.js";
 
 async function init() {
   const answerContainer = document.querySelector(".answer-container");
   answerContainer.before(navigationGenerator());
   let searchingFor = getUrlParams("search");
-
 
   const foundUsers = await fetchData(`${API_URL()}/users?q=${searchingFor}`);
   if (foundUsers.length < 1) {
@@ -24,11 +22,11 @@ async function init() {
     foundUsers.forEach((user) => {
       const { id, name, username, email } = user;
       const userAnswerContainer = document.createElement("div");
-      userAnswerContainer.classList.add('user-answer-container')
+      userAnswerContainer.classList.add("user-answer-container");
       userAnswerContainer.innerHTML = `
 
       <ul>
-        <li>Name: ${firstLetterUpper(name)}</li>
+        <li>Name:<a href='/user.html?user_id=${id}'>${name}</a></li>
         <li>UserName: ${firstLetterUpper(username)}</li>
         <li>Email: ${email}</li>
       </ul>
@@ -36,7 +34,6 @@ async function init() {
       answerContainer.append(userAnswerContainer);
     });
   }
-
 
   const foundPosts = await fetchData(`${API_URL()}/posts?q=${searchingFor}`);
   if (foundPosts.length < 1) {
@@ -48,11 +45,11 @@ async function init() {
       const { body, id, title, userId } = post;
 
       const postAnswerContainer = document.createElement("div");
-      postAnswerContainer.classList.add('post-answer-container')
+      postAnswerContainer.classList.add("post-answer-container");
       postAnswerContainer.innerHTML = `
 
       <ul>
-        <li> Post Title: ${firstLetterUpper(title)}</li>
+        <li> Post Title:<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(title)}</a></li>
         <li> Post Body: ${firstLetterUpper(body)}</li>
       </ul>
       `;
@@ -70,11 +67,11 @@ async function init() {
       const { id, title, userId } = album;
 
       const albumAnswerContainer = document.createElement("div");
-      albumAnswerContainer.classList.add('album-answer-container')
+      albumAnswerContainer.classList.add("album-answer-container");
       albumAnswerContainer.innerHTML = `
 
       <ul>
-        <li> Album Title: ${firstLetterUpper(title)}</li>
+        <li> Album Title: <a href='/album.html?album_id=${id}'>${title}</a></li>
       </ul>
       `;
       answerContainer.append(albumAnswerContainer);
