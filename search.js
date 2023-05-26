@@ -5,7 +5,7 @@
 //!9.3.1. Jeigu nėra tinkamų rezultatų, tai parašyti jog rezultatų pagal užklausą nerasta.
 
 import { navigationGenerator } from "./navigation.js";
-
+import { firstLetterUpper } from "./functions.js";
 async function init() {
   document.body.prepend(navigationGenerator());
 
@@ -17,10 +17,11 @@ async function init() {
     `https://jsonplaceholder.typicode.com/${searchQuery}/`
   );
   let userData = await response.json();
-
   let initAnswerContainer = document.querySelector(".answer-container");
 
-  if (userData == undefined) {
+
+  if (userData.length == undefined) {
+    //!Lauzymas, bet kolkas tiks.
     initAnswerContainer.append(generateError());
   } else {
     initAnswerContainer.append(generateAnswer(searchQuery, userData));
@@ -35,7 +36,9 @@ function classRemove() {
 }
 
 function generateError() {
+  let generateAnswerContainer = document.createElement("div");
   generateAnswerContainer.innerHTML = `<h1>Nieko nerasta</h1>`;
+  console.log(generateAnswerContainer)
 
   return generateAnswerContainer;
 }
@@ -45,13 +48,13 @@ function generateAnswer(search, userData) {
     let generateAnswerContainer = document.createElement("div");
 
     userData.forEach((user) => {
-      let { name, username, email } = user;
+      let { name, username, email, id } = user;
       let userContainer = document.createElement("div");
 
       generateAnswerContainer.append(userContainer);
       userContainer.innerHTML = `
           <ul>
-            <li>Name: ${name}</li>
+            <li>Name:<a href='/user.html?user_id=${id}'>${name}</a></li>
             <li>User Name: ${username}</li>
             <li>Email: ${email}</li>
           </ul>`;
@@ -61,14 +64,15 @@ function generateAnswer(search, userData) {
   } else if (search === "posts") {
     let generateAnswerContainer = document.createElement("div");
     userData.forEach((post) => {
-      let { title, body } = post;
+      console.log(post)
+      let { title, body, id } = post;
       let userContainer = document.createElement("div");
       generateAnswerContainer.append(userContainer);
       userContainer.innerHTML = `
           <ul>
-            <li>Title: ${title}</li>
-            <li>Body: ${body}</li>
-          </ul>`;
+            <li>Title:<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(title)}</a></li>
+            <li>Body: ${firstLetterUpper(body)}</li>
+          </ul>`
     });
 
     return generateAnswerContainer;
@@ -81,6 +85,7 @@ function generateAnswer(search, userData) {
       userContainer.innerHTML = `
           <ul>
             <li>Album Title: ${user.title}</li>
+
             <li>Album Identification: ${user.id}</li>
             <li>User Id: ${user.userId}</li>
           </ul>`;
