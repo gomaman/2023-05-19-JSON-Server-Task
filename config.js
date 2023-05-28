@@ -19,4 +19,4 @@
    return albumsPerPage
  }
 
- export const menuItemsArr = [ "Select a filter", "Users", "Posts", "Albums" ]
+ export const menuItemsArr = [ "All", "Users", "Posts", "Albums" ]
