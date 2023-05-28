@@ -16,7 +16,6 @@ async function init() {
   const foundPosts = await fetchData(`${API_URL()}/posts?q=${searchingFor}`);
   const foundAlbums = await fetchData(`${API_URL()}/albums?q=${searchingFor}`);
 
-
   const userInfoContainer = document.createElement("div");
   const userInfoUl = document.createElement("ul");
 
@@ -38,28 +37,111 @@ async function init() {
   });
   searchForm.prepend(searchCategory);
 
-  searchForm.addEventListener("submit", (e) => {
+  //!USER GENERATE SECTION
+  if (foundUsers.length < 1) {
+    userInfoUl.append(
+      createHTMLElement(
+        "span",
+        "error",
+        `No Users Found with "${searchingFor}"`
+      )
+    );
+  } else {
+    userInfoUl.append(
+      createHTMLElement(
+        "h1",
+        "section-title",
+        searchingFor ? `"${searchingFor}" in User Names:` : "User Names:"
+      )
+    );
+    foundUsers.forEach((user) => {
+      const { id, name } = user;
+      const userAnswerLiContainer = document.createElement("li");
+      userAnswerLiContainer.innerHTML = `<a href='/user.html?user_id=${id}'>${name}</a>`;
+      userInfoUl.append(userAnswerLiContainer);
+    });
+  }
+  userInfoContainer.append(userInfoUl);
+  userInfoContainer.classList.add("user-answer-container");
+
+  //!POST GENERATE SECTION
+  if (foundPosts.length < 1) {
+    postInfoUl.append(
+      createHTMLElement(
+        "span",
+        "error",
+        `No Posts Found with "${searchingFor}"`
+      )
+    );
+  } else {
+    postInfoUl.append(
+      createHTMLElement(
+        "h1",
+        "section-title",
+        searchingFor ? `"${searchingFor}" in Post Titles:` : "Post Titles:"
+      )
+    );
+    foundPosts.forEach((post) => {
+      const { id, title } = post;
+      const postAnswerLiContainer = document.createElement("li");
+      postAnswerLiContainer.innerHTML = `<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(
+        title
+      )}</a>`;
+      postInfoUl.append(postAnswerLiContainer);
+    });
+  }
+  postInfoContainer.append(postInfoUl);
+  postInfoContainer.classList.add("post-answer-container");
+
+  //!ALBUM GENERATE SECTION
+  if (foundAlbums.length < 1) {
+    albumInfoUl.append(
+      createHTMLElement(
+        "span",
+        "error",
+        `No Albums Found with "${searchingFor}"`
+      )
+    );
+  } else {
+    albumInfoUl.append(
+      createHTMLElement(
+        "h1",
+        "section-title",
+        searchingFor ? `"${searchingFor}" in Album Titles:` : "Album Titles:"
+      )
+    );
+    foundAlbums.forEach((album) => {
+      const { id, title } = album;
+      const albumAnswerLiContainer = document.createElement("li");
+      albumAnswerLiContainer.innerHTML = `<a href='/album.html?album_id=${id}'>${firstLetterUpper(
+        title
+      )}</a>`;
+      albumInfoUl.append(albumAnswerLiContainer);
+    });
+  }
+  albumInfoContainer.append(albumInfoUl);
+  albumInfoContainer.classList.add("album-answer-container");
+
+  searchForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    const choice = searchForm.category.value;
 
-    let choice = searchForm.category.value;
+    const filteredUsers = await fetchData(
+      `${API_URL()}/users?q=${searchingFor}`
+    );
+    const filteredPosts = await fetchData(
+      `${API_URL()}/posts?q=${searchingFor}`
+    );
+    const filteredAlbums = await fetchData(
+      `${API_URL()}/albums?q=${searchingFor}`
+    );
 
-    
-    if (choice == "All") {
+    userInfoUl.innerHTML = "";
+    postInfoUl.innerHTML = "";
+    albumInfoUl.innerHTML = "";
 
-      userInfoUl.innerHTML = "";
-      postInfoUl.innerHTML = "";
-      albumInfoUl.innerHTML = "";
-
-      userInfoContainer.append(userInfoUl);
-      postInfoContainer.append(postInfoUl);
-      albumInfoContainer.append(albumInfoUl);
-
-      userInfoContainer.classList.add("user-answer-container");
-      postInfoContainer.classList.add("post-answer-container");
-      albumInfoContainer.classList.add("album-answer-container");
-
-      //!USER GENERATE SECTION
-      if (foundUsers.length < 1) {
+    if (choice === "Users") {
+      if (filteredUsers.length < 1) {
         userInfoUl.append(
           createHTMLElement(
             "span",
@@ -67,35 +149,23 @@ async function init() {
             `No Users Found with "${searchingFor}"`
           )
         );
-      } else if (searchingFor !== "") {
+      } else {
         userInfoUl.append(
           createHTMLElement(
             "h1",
             "section-title",
-            `"${searchingFor}" in User Names:`
+            searchingFor ? `"${searchingFor}" in User Names:` : "User Names:"
           )
         );
-        foundUsers.forEach((user) => {
-          const { id, name, username, email } = user;
-          const userAnswerLiContainer = document.createElement("li");
-          userAnswerLiContainer.innerHTML = `<a href='/user.html?user_id=${id}'>${name}</a>`;
-          userInfoUl.append(userAnswerLiContainer);
-        });
-      } else {
-        userInfoUl.append(
-          createHTMLElement("h1", "section-title", `User Names:`)
-        );
-        foundUsers.forEach((user) => {
-          const { id, name, username, email } = user;
+        filteredUsers.forEach((user) => {
+          const { id, name } = user;
           const userAnswerLiContainer = document.createElement("li");
           userAnswerLiContainer.innerHTML = `<a href='/user.html?user_id=${id}'>${name}</a>`;
           userInfoUl.append(userAnswerLiContainer);
         });
       }
-
-      //!POST GENERATE SECTION
-
-      if (foundPosts.length < 1) {
+    } else if (choice === "Posts") {
+      if (filteredPosts.length < 1) {
         postInfoUl.append(
           createHTMLElement(
             "span",
@@ -103,28 +173,16 @@ async function init() {
             `No Posts Found with "${searchingFor}"`
           )
         );
-      } else if (searchingFor !== "") {
+      } else {
         postInfoUl.append(
           createHTMLElement(
             "h1",
             "section-title",
-            ` "${searchingFor}" in Post Titles: `
+            searchingFor ? `"${searchingFor}" in Post Titles:` : "Post Titles:"
           )
         );
-        foundPosts.forEach((post) => {
-          const { body, id, title, userId } = post;
-          const postAnswerLiContainer = document.createElement("li");
-          postAnswerLiContainer.innerHTML = `<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(
-            title
-          )}</a>`;
-          postInfoUl.append(postAnswerLiContainer);
-        });
-      } else {
-        postInfoUl.append(
-          createHTMLElement("h1", "section-title", `Post Titles: `)
-        );
-        foundPosts.forEach((post) => {
-          const { body, id, title, userId } = post;
+        filteredPosts.forEach((post) => {
+          const { id, title } = post;
           const postAnswerLiContainer = document.createElement("li");
           postAnswerLiContainer.innerHTML = `<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(
             title
@@ -132,10 +190,8 @@ async function init() {
           postInfoUl.append(postAnswerLiContainer);
         });
       }
-
-      //!ALBUM GENERATE SECTION
-
-      if (foundAlbums.length < 1) {
+    } else if (choice === "Albums") {
+      if (filteredAlbums.length < 1) {
         albumInfoUl.append(
           createHTMLElement(
             "span",
@@ -143,28 +199,16 @@ async function init() {
             `No Albums Found with "${searchingFor}"`
           )
         );
-      } else if (searchingFor !== "") {
+      } else {
         albumInfoUl.append(
           createHTMLElement(
             "h1",
             "section-title",
-            ` "${searchingFor}" in Album Titles:`
+            searchingFor ? `"${searchingFor}" in Album Titles:` : "Album Titles:"
           )
         );
-        foundAlbums.forEach((album) => {
-          const { id, title, userId } = album;
-          const albumAnswerLiContainer = document.createElement("li");
-          albumAnswerLiContainer.innerHTML = `<a href='/album.html?album_id=${id}'>${firstLetterUpper(
-            title
-          )}</a>`;
-          albumInfoUl.append(albumAnswerLiContainer);
-        });
-      } else {
-        albumInfoUl.append(
-          createHTMLElement("h1", "section-title", ` Album Titles:`)
-        );
-        foundAlbums.forEach((album) => {
-          const { id, title, userId } = album;
+        filteredAlbums.forEach((album) => {
+          const { id, title } = album;
           const albumAnswerLiContainer = document.createElement("li");
           albumAnswerLiContainer.innerHTML = `<a href='/album.html?album_id=${id}'>${firstLetterUpper(
             title
@@ -172,155 +216,18 @@ async function init() {
           albumInfoUl.append(albumAnswerLiContainer);
         });
       }
-
-      //!ALBUM GENERATE SECTION
-    } else if (choice == "Users") {
-
-      userInfoUl.innerHTML = "";
-      postInfoUl.innerHTML = "";
-      albumInfoUl.innerHTML = "";
-
-      userInfoContainer.append(userInfoUl);
-      userInfoContainer.classList.add("user-answer-container");
-      //!USER GENERATE SECTION
-      if (foundUsers.length < 1) {
-        userInfoUl.append(
-          createHTMLElement(
-            "span",
-            "error",
-            `No Users Found with "${searchingFor}"`
-          )
-        );
-      } else if (searchingFor !== "") {
-        userInfoUl.append(
-          createHTMLElement(
-            "h1",
-            "section-title",
-            `"${searchingFor}" in User Names:`
-          )
-        );
-
-        foundUsers.forEach((user) => {
-          const { id, name, username, email } = user;
-          const userAnswerLiContainer = document.createElement("li");
-          userAnswerLiContainer.innerHTML = `<a href='/user.html?user_id=${id}'>${name}</a>`;
-          userInfoUl.append(userAnswerLiContainer);
-        });
-      } else {
-        userInfoUl.append(
-          createHTMLElement("h1", "section-title", `User Names:`)
-        );
-        foundUsers.forEach((user) => {
-          const { id, name, username, email } = user;
-          const userAnswerLiContainer = document.createElement("li");
-          userAnswerLiContainer.innerHTML = `<a href='/user.html?user_id=${id}'>${name}</a>`;
-          userInfoUl.append(userAnswerLiContainer);
-        });
-      }
-
-      //!USER GENERATE SECTION
-    } else if (choice == "Posts") {
-      //!POST GENERATE SECTION
-
-      userInfoUl.innerHTML = "";
-      postInfoUl.innerHTML = "";
-      albumInfoUl.innerHTML = "";
-
-      postInfoContainer.append(postInfoUl);
-      postInfoContainer.classList.add("post-answer-container");
-      if (foundPosts.length < 1) {
-        postInfoUl.append(
-          createHTMLElement(
-            "span",
-            "error",
-            `No Posts Found with "${searchingFor}"`
-          )
-        );
-      } else if (searchingFor !== "") {
-        postInfoUl.append(
-          createHTMLElement(
-            "h1",
-            "section-title",
-            ` "${searchingFor}" in Post Titles: `
-          )
-        );
-        foundPosts.forEach((post) => {
-          const { body, id, title, userId } = post;
-          const postAnswerLiContainer = document.createElement("li");
-          postAnswerLiContainer.innerHTML = `<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(
-            title
-          )}</a>`;
-          postInfoUl.append(postAnswerLiContainer);
-        });
-      } else {
-        postInfoUl.append(
-          createHTMLElement("h1", "section-title", `Post Titles: `)
-        );
-        foundPosts.forEach((post) => {
-          const { body, id, title, userId } = post;
-          const postAnswerLiContainer = document.createElement("li");
-          postAnswerLiContainer.innerHTML = `<a href='/post.html?post_id=${id}&user_id=1'>${firstLetterUpper(
-            title
-          )}</a>`;
-          postInfoUl.append(postAnswerLiContainer);
-        });
-      }
-      //!POST GENERATE SECTION
-    } else if (choice == "Albums") {
-      //!ALBUM GENERATE SECTION
-      userInfoUl.innerHTML = "";
-      postInfoUl.innerHTML = "";
-      albumInfoUl.innerHTML = "";
-
-      albumInfoContainer.append(albumInfoUl);
-      albumInfoContainer.classList.add("album-answer-container");
-      if (foundAlbums.length < 1) {
-        albumInfoUl.append(
-          createHTMLElement(
-            "span",
-            "error",
-            `No Albums Found with "${searchingFor}"`
-          )
-        );
-      } else if (searchingFor !== "") {
-        albumInfoUl.append(
-          createHTMLElement(
-            "h1",
-            "section-title",
-            ` "${searchingFor}" in Album Titles:`
-          )
-        );
-        foundAlbums.forEach((album) => {
-          const { id, title, userId } = album;
-          const albumAnswerLiContainer = document.createElement("li");
-          albumAnswerLiContainer.innerHTML = `<a href='/album.html?album_id=${id}'>${firstLetterUpper(
-            title
-          )}</a>`;
-          albumInfoUl.append(albumAnswerLiContainer);
-        });
-      } else {
-        albumInfoUl.append(
-          createHTMLElement("h1", "section-title", ` Album Titles:`)
-        );
-        foundAlbums.forEach((album) => {
-          const { id, title, userId } = album;
-          const albumAnswerLiContainer = document.createElement("li");
-          albumAnswerLiContainer.innerHTML = `<a href='/album.html?album_id=${id}'>${firstLetterUpper(
-            title
-          )}</a>`;
-          albumInfoUl.append(albumAnswerLiContainer);
-        });
-      }
-
-      //!ALBUM GENERATE SECTION
     }
 
-    answerContainer.append(
-      userInfoContainer,
-      postInfoContainer,
-      albumInfoContainer
-    );
+    userInfoContainer.style.display = "block";
+    postInfoContainer.style.display = "block";
+    albumInfoContainer.style.display = "block";
   });
+
+  answerContainer.append(
+    userInfoContainer,
+    postInfoContainer,
+    albumInfoContainer
+  );
 }
 
 init();
