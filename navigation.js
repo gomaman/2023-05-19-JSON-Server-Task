@@ -25,7 +25,7 @@ export function navigationGenerator() {
   const menuList = document.createElement('ul');
   menuList.classList.add('menu', 'main-menu');
 
-  navigationElement.append(searchForm, menuList);
+  navigationElement.append(menuList,searchForm);
 
   const menuItems = [
     {
@@ -67,3 +67,8 @@ export function navigationGenerator() {
   return headerElement
 }
 
+
+
+export function navigationFilter() {
+    
+}

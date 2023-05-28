@@ -11,8 +11,6 @@ async function init() {
     body.prepend(navigationGenerator())
 }
 
-
-
 function albumItemGenerator (data) {
 let container = document.querySelector('.album-container')
 

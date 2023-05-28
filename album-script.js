@@ -15,7 +15,7 @@ async function init() {
   );
   let albumData = await response.json();
   const albumContainer = document.querySelector("#container");
-  console.log(albumData);
+
   albumContainer.append(albumGenerator(albumData));
 }
 

@@ -8,10 +8,25 @@
 }
 
 nav {
-    background-color: #f2f2f2;
-    padding: 10px;
-    display: flex;
+  background-color: #f2f2f2;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
 }
+
+nav button {
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+  border-radius: 5px;
+  margin-left:5px;
+}
+
+nav button:hover {
+  background-color: #333;
+  color: #fff;
+}
+
 
 nav ul {
     list-style-type: none;
@@ -209,31 +224,35 @@ ul {
 .album-answer-container  li {
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #eaeaea;
+  background-color: #AAB7B8;
   border-radius: 5px;
 }
 
 .album-answer-container  li:nth-child(odd) {
-  background-color: #ffcc99;
+  background-color: #99A3A4
 }
 
 .album-answer-container  li:nth-child(even) {
-  background-color: #99ccff;
+  background-color: #B2BABB
 }
 
 .album-answer-container  li:nth-child(3n) {
-  background-color: #cc99ff;
+  background-color: #AEB6BF
 }
 
 .album-answer-container  li:nth-child(4n) {
-  background-color: #99ff99;
+  background-color: #85929E
 }
 
 .album-answer-container  li:hover {
-  background-color: #99ffc7;
+  background-color: #566573;
   color: white;
 }
 
 a {
   text-decoration: none;
+}
+
+.section-title {
+  margin:5px;
 }
