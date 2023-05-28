@@ -33,4 +33,47 @@ export function createHTMLElement(type, className, text) {
     return element;
 }
 
+export function createUser (searchDataUser) {
+    const userInfoContainer = document.createElement("div");
+    const userInfoUl = document.createElement("ul");
+    userInfoContainer.append(userInfoUl);
+    userInfoContainer.classList.add("user-answer-container");
+  
+    let searchingFor = getUrlParams("search");
 
+    const foundUsers = searchDataUser
+  
+    // if (foundUsers.length < 1) {
+    //   userInfoUl.append(
+    //     createHTMLElement(
+    //       "span",
+    //       "error",
+    //       `No Users Found with "${searchingFor}"`
+    //     )
+    //   );
+    // } else if (searchingFor !== "") {
+    //   userInfoUl.append(
+    //     createHTMLElement(
+    //       "h1",
+    //       "section-title",
+    //       `"${searchingFor}" in User Names:`
+    //     )
+    //   );
+    //   foundUsers.forEach((user) => {
+    //     const { id, name, username, email } = user;
+    //     const userAnswerLiContainer = document.createElement("li");
+    //     userAnswerLiContainer.innerHTML = `<a href='/user.html?user_id=${id}'>${name}</a>`;
+    //     userInfoUl.append(userAnswerLiContainer);
+    //   });
+    // } else {
+      userInfoUl.append(createHTMLElement("h1", "section-title", `User Names:`));
+      foundUsers.forEach((user) => {
+        const { id, name, username, email } = user;
+        const userAnswerLiContainer = document.createElement("li");
+        userAnswerLiContainer.innerHTML = `<a href='/user.html?user_id=${id}'>${name}</a>`;
+        userInfoUl.append(userAnswerLiContainer);
+      });
+    // }
+
+    return userInfoContainer
+}
