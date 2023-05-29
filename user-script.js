@@ -52,17 +52,9 @@ function albumGenerator(data) {
 }
 
 function singleUserGenerator(userData) {
-  let name = userData.name;
-  let username = userData.username;
-  let address = userData.address;
-  let street = address.street;
-  let suite = address.suite;
-  let city = address.city;
-  let zipCode = address.zipcode;
-  let email = userData.email;
-  let phone = userData.phone;
-  let website = userData.website;
-  let companyName = userData.company.name;
+
+  const {name, username, address, email, phone, website ,companyName} = userData
+  const {street, suite, city, zipCode} = userData.address
 
   let addressContainer = document.createElement("div");
   addressContainer.classList.add("single-address-container");
