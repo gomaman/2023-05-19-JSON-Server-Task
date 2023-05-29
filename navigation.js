@@ -66,9 +66,3 @@ export function navigationGenerator() {
 
   return headerElement
 }
-
-
-
-export function navigationFilter() {
-    
-}
