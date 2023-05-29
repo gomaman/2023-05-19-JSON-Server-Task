@@ -45,8 +45,7 @@ async function init() {
   if (foundUsers.length < 1) {
     userInfoUl.append(createHTMLElement("span", "error", `No Users Found with "${searchingFor}"`));
   } else if (searchingFor !== "") {
-    userInfoUl.append(
-      createHTMLElement("h1", "section-title", `"${searchingFor}" in User Names:`));
+    userInfoUl.append(createHTMLElement("h1", "section-title", `"${searchingFor}" in User Names:`));
     foundUsers.forEach((user) => {
       const { id, name, username, email } = user;
       const userAnswerLiContainer = document.createElement("li");
@@ -69,8 +68,7 @@ async function init() {
   postInfoContainer.classList.add("post-answer-container");
 
   if (foundPosts.length < 1) {
-    postInfoUl.append(
-      createHTMLElement("span", "error", `No Posts Found with "${searchingFor}"`));
+    postInfoUl.append(createHTMLElement("span", "error", `No Posts Found with "${searchingFor}"`));
   } else if (searchingFor !== "") {
     postInfoUl.append(
       createHTMLElement("h1", "section-title", ` "${searchingFor}" in Post Titles: `));
@@ -103,8 +101,7 @@ async function init() {
   if (foundAlbums.length < 1) {
     albumInfoUl.append(createHTMLElement("span", "error", `No Albums Found with "${searchingFor}"`));
   } else if (searchingFor !== "") {
-    albumInfoUl.append(
-      createHTMLElement("h1", "section-title", ` "${searchingFor}" in Album Titles:`));
+    albumInfoUl.append(createHTMLElement("h1", "section-title", ` "${searchingFor}" in Album Titles:`));
     foundAlbums.forEach((album) => {
       const { id, title, userId } = album;
       const albumAnswerLiContainer = document.createElement("li");
